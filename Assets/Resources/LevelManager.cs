@@ -25,6 +25,8 @@ public class LevelManager : MonoBehaviour
     public static Button ExchangeButton;
     [SerializeField] GameObject ExchangeButtonObject;
 
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,8 @@ public class LevelManager : MonoBehaviour
         
         GoldDisplay.text = "" + gold;
         SoulsDisplay.text = "" + souls;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void UpdateUI()
@@ -55,6 +59,11 @@ public class LevelManager : MonoBehaviour
         }
         GoldDisplay.text = "" + gold;
         SoulsDisplay.text = "" + souls;
+    }
+
+    public void PlaySound(AudioClip a)
+    {
+        audioSource.PlayOneShot(a);
     }
 
     // Update is called once per frame

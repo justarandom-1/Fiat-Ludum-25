@@ -8,6 +8,8 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     float wait = 0;
 
+    [SerializeField] AudioClip selectSFX;
+
     private AudioSource audioSource;
 
     [SerializeField] float TransitionTime;
@@ -20,6 +22,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartLevel()
     {
+        audioSource.PlayOneShot(selectSFX);
         wait = TransitionTime;
         GameObject.Find("Menu").GetComponent<Animator>().Play("MenuDisappear");
     }

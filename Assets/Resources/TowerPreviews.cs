@@ -33,6 +33,9 @@ public class TowerSelector : MonoBehaviour
     [SerializeField] int overlaps;
     private Color preview;
     private Color warning;
+
+    [SerializeField] AudioClip buildSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -88,6 +91,7 @@ public class TowerSelector : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0) && (int)selectedTower > 0 && overlaps == 0)
         {
+            LevelManager.instance.PlaySound(buildSFX);
             GameObject n = Instantiate(TowerObjects[(int)selectedTower], 
                                        new Vector3(transform.position.x, transform.position.y, -1), 
                                        Quaternion.identity * TowerObjects[(int)selectedTower].transform.localRotation);

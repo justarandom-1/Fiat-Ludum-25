@@ -823,6 +823,7 @@ GameObject:
   - component: {fileID: 433977024}
   - component: {fileID: 433977023}
   - component: {fileID: 433977026}
+  - component: {fileID: 433977027}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1000,6 +1001,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &433977027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433977022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2c09d91b4713f240a884c4ccc64ea2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TowerButtonObjects:
+  - {fileID: 0}
+  - {fileID: 742297080}
+  - {fileID: 771539465}
+  - {fileID: 1522142059}
+  - {fileID: 1420225352}
+  - {fileID: 42769736}
+  GoldText: {fileID: 1516746765}
+  SoulsText: {fileID: 220444437}
+  ExchangeButtonObject: {fileID: 464977639}
 --- !u!1 &464977639
 GameObject:
   m_ObjectHideFlags: 0
@@ -3043,6 +3066,7 @@ MonoBehaviour:
   - {fileID: 8802292391076179982, guid: 91841891dba31ee44864c26d956ff13f, type: 3}
   - {fileID: 1340837798337111352, guid: 9c6455af0f376114d99847c62d809f15, type: 3}
   overlaps: 0
+  buildSFX: {fileID: 8300000, guid: 7147f8728cca9fd4b9f1c9faf2c02390, type: 3}
 --- !u!212 &1897529746
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3245,7 +3269,6 @@ GameObject:
   - component: {fileID: 2029154763}
   - component: {fileID: 2029154762}
   - component: {fileID: 2029154761}
-  - component: {fileID: 2029154765}
   m_Layer: 5
   m_Name: LowerMenu
   m_TagString: Untagged
@@ -3338,28 +3361,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1040.5, y: 585}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2029154765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2029154760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2c09d91b4713f240a884c4ccc64ea2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TowerButtonObjects:
-  - {fileID: 0}
-  - {fileID: 742297080}
-  - {fileID: 771539465}
-  - {fileID: 1522142059}
-  - {fileID: 1420225352}
-  - {fileID: 42769736}
-  GoldText: {fileID: 1516746765}
-  SoulsText: {fileID: 220444437}
-  ExchangeButtonObject: {fileID: 464977639}
 --- !u!1 &2086930810
 GameObject:
   m_ObjectHideFlags: 0
