@@ -12,13 +12,10 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] float TransitionTime;
 
-    [SerializeField] AudioClip MenuMusic;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.clip = MenuMusic;
         audioSource.volume = 1;
-        audioSource.Play();
     }
 
     public void StartLevel()
