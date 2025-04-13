@@ -27,37 +27,75 @@ public class TowerSelector : MonoBehaviour
     [SerializeField] List<Sprite> PreviewImgs;
     [SerializeField] List<int> Costs;
 
+    [SerializeField] List<GameObject> TowerObjects;
+
     private SpriteRenderer spriteRenderer;
+    [SerializeField] int overlaps;
+    private Color preview;
+    private Color warning;
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         TowerCosts = Costs;
+        overlaps = 0;
+
+        preview = spriteRenderer.color;
+        warning = new Color(1, 0, 0, 0.5f);
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "Tower"){
+            overlaps++;
+            spriteRenderer.color = warning;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "Tower")
+            if(overlaps <= 0)
+                overlaps = 0;
+            else
+                overlaps--;
+                if(overlaps == 0)
+                    spriteRenderer.color = preview;
     }
 
     public void SelectTower(int n)
     {
-        Debug.Log("Selected" + n);
         selectedTower = (Tower)n;
-        spriteRenderer.sprite = PreviewImgs[n];        
+        spriteRenderer.sprite = PreviewImgs[n];      
     }
 
     // Update is called once per frame
     void Update()
     {
         for(int i = 1; i <= 5; i++)
-        {
             if (Input.GetKeyDown("" + i))
-            {
-                Debug.Log(LevelManager.TowerButtons[i].interactable);
-                if((int)selectedTower == i)
-                    SelectTower(0);
-                else if(LevelManager.TowerButtons[i].interactable){
+                if(LevelManager.TowerButtons[i].interactable && (int)selectedTower != i)
                     SelectTower(i);
-                }
-            }
-        }
+                
+                else 
+                    SelectTower(0);
+
+        
+        
         MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(MousePosition.x, MousePosition.y, transform.position.z);
+
+        if(!Mathf.Approximately(MousePosition.x, transform.position.x) || !Mathf.Approximately(MousePosition.y, transform.position.y))
+            transform.position = new Vector3(MousePosition.x, MousePosition.y, transform.position.z);
+
+        if(Input.GetMouseButtonDown(0) && (int)selectedTower > 0 && overlaps == 0)
+        {
+            GameObject n = Instantiate(TowerObjects[(int)selectedTower], 
+                                       new Vector3(transform.position.x, transform.position.y, -1), 
+                                       Quaternion.identity * TowerObjects[(int)selectedTower].transform.localRotation);
+            if(selectedTower == Tower.Base)
+                LevelManager.Base = n;
+            LevelManager.gold -= TowerCosts[(int)selectedTower];
+            LevelManager.instance.UpdateUI();
+            SelectTower(0);
+        }
     }
 }

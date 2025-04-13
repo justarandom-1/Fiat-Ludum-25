@@ -823,7 +823,6 @@ GameObject:
   - component: {fileID: 433977024}
   - component: {fileID: 433977023}
   - component: {fileID: 433977026}
-  - component: {fileID: 433977027}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1001,28 +1000,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &433977027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 433977022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2c09d91b4713f240a884c4ccc64ea2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TowerButtonObjects:
-  - {fileID: 0}
-  - {fileID: 742297080}
-  - {fileID: 771539465}
-  - {fileID: 1522142059}
-  - {fileID: 1420225352}
-  - {fileID: 42769736}
-  GoldText: {fileID: 1516746765}
-  SoulsText: {fileID: 220444437}
-  ExchangeButtonObject: {fileID: 464977639}
 --- !u!1 &464977639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,7 +1254,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b4f2cf2009634d84ba43e6deb6561890, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 385725a1f1c0f3047a187054e087f0e8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1352,7 +1329,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b4f2cf2009634d84ba43e6deb6561890, type: 3}
+  m_Sprite: {fileID: 21300000, guid: acfb87908e8c3074ab9112c587d1ed4f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2788,7 +2765,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 240, y: -215}
+  m_AnchoredPosition: {x: 246, y: -215}
   m_SizeDelta: {x: 600, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1711386301
@@ -3014,6 +2991,8 @@ GameObject:
   - component: {fileID: 1897529744}
   - component: {fileID: 1897529745}
   - component: {fileID: 1897529746}
+  - component: {fileID: 1897529748}
+  - component: {fileID: 1897529749}
   m_Layer: 0
   m_Name: TowerSelector
   m_TagString: Untagged
@@ -3053,9 +3032,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f605b41588012094184ba1810efb541d, type: 3}
   - {fileID: 21300000, guid: d072aa99f050b1e47813b592d6b7866e, type: 3}
   - {fileID: 21300000, guid: 89bbd03f8cfee10409c8a59308bb9c50, type: 3}
-  - {fileID: 21300000, guid: b4f2cf2009634d84ba43e6deb6561890, type: 3}
-  - {fileID: 21300000, guid: b4f2cf2009634d84ba43e6deb6561890, type: 3}
+  - {fileID: 21300000, guid: 385725a1f1c0f3047a187054e087f0e8, type: 3}
+  - {fileID: 21300000, guid: acfb87908e8c3074ab9112c587d1ed4f, type: 3}
   Costs: 00000000fa0000006400000064000000fa000000f4010000
+  TowerObjects:
+  - {fileID: 0}
+  - {fileID: 2617694580837047233, guid: 554b422965a6dc54f9aeb1cff189e61f, type: 3}
+  - {fileID: 2249032046222178030, guid: 95cc8cad0c3eb754bb1520a3caa5f47e, type: 3}
+  - {fileID: 3822233006738709430, guid: 8020a6196b06b8f4ea512a083c8715b3, type: 3}
+  - {fileID: 8802292391076179982, guid: 91841891dba31ee44864c26d956ff13f, type: 3}
+  - {fileID: 1340837798337111352, guid: 9c6455af0f376114d99847c62d809f15, type: 3}
+  overlaps: 0
 --- !u!212 &1897529746
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3108,6 +3095,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1897529748
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897529743}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.9890617
+--- !u!50 &1897529749
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897529743}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1988768864
 GameObject:
   m_ObjectHideFlags: 0
@@ -3144,7 +3193,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -195, y: 75}
-  m_SizeDelta: {x: 535, y: 617}
+  m_SizeDelta: {x: 275, y: 275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1988768866
 MonoBehaviour:
@@ -3166,7 +3215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c99525cbe8578bf43a063efff135ff4b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50d810d024f3a1d4496a839e0c2ceaf0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3196,6 +3245,7 @@ GameObject:
   - component: {fileID: 2029154763}
   - component: {fileID: 2029154762}
   - component: {fileID: 2029154761}
+  - component: {fileID: 2029154765}
   m_Layer: 5
   m_Name: LowerMenu
   m_TagString: Untagged
@@ -3288,6 +3338,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1040.5, y: 585}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2029154765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029154760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2c09d91b4713f240a884c4ccc64ea2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TowerButtonObjects:
+  - {fileID: 0}
+  - {fileID: 742297080}
+  - {fileID: 771539465}
+  - {fileID: 1522142059}
+  - {fileID: 1420225352}
+  - {fileID: 42769736}
+  GoldText: {fileID: 1516746765}
+  SoulsText: {fileID: 220444437}
+  ExchangeButtonObject: {fileID: 464977639}
 --- !u!1 &2086930810
 GameObject:
   m_ObjectHideFlags: 0

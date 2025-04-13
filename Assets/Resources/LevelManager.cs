@@ -8,14 +8,16 @@ using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
+    public static LevelManager instance;
     public static int gold;
     public static int souls;
+    public static GameObject Base;
     public static GameObject LowerMenu;
     public static List<Button> TowerButtons = new List<Button>();
 
     [SerializeField] List<GameObject> TowerButtonObjects;
-    public static Text GoldDisplay;
-    public static Text SoulsDisplay;
+    public static TMP_Text GoldDisplay;
+    public static TMP_Text SoulsDisplay;
 
     [SerializeField] GameObject GoldText;
     [SerializeField] GameObject SoulsText;
@@ -26,27 +28,31 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
+
         gold = 500;
         souls = PlayerPrefs.GetInt("souls", 0);
+
+        TowerButtons.Add(null);
 
         foreach(GameObject button in TowerButtonObjects)
             if(button && button.GetComponent<Button>())
                 TowerButtons.Add(button.GetComponent<Button>());
 
-        GoldDisplay = GoldText.GetComponent<Text>();
-        SoulsDisplay = SoulsText.GetComponent<Text>();
+        GoldDisplay = GoldText.GetComponent<TMP_Text>();
+        SoulsDisplay = SoulsText.GetComponent<TMP_Text>();
+        
+        GoldDisplay.text = "" + gold;
+        SoulsDisplay.text = "" + souls;
     }
 
-    public void UpdateButtons()
+    public void UpdateUI()
     {
-        for(int i = 1; i < TowerButtons.Count; i++)
+        TowerButtons[1].interactable = Base == null;        
+        for(int i = 2; i < TowerButtons.Count; i++)
         {
             TowerButtons[i].interactable = TowerSelector.TowerCosts[i] <= gold;
         }
-    }
-
-    public void UpdateCurrency()
-    {
         GoldDisplay.text = "" + gold;
         SoulsDisplay.text = "" + souls;
     }
