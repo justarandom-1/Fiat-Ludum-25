@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -11,6 +12,8 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
     public static int gold;
     public static int souls;
+
+    public static int phase;
     public static GameObject Base;
     public static GameObject LowerMenu;
     public static List<Button> TowerButtons = new List<Button>();
@@ -25,11 +28,18 @@ public class LevelManager : MonoBehaviour
     public static Button ExchangeButton;
     [SerializeField] GameObject ExchangeButtonObject;
 
+    private List<(int, SpawnPattern)> schedule;
+
+    float timer = 0;
+
     private AudioSource audioSource;
+
+    int nextSpawn;
 
     // Start is called before the first frame update
     void Start()
     {
+        phase = 0;
         instance = this;
 
         gold = 500;
@@ -47,7 +57,23 @@ public class LevelManager : MonoBehaviour
         GoldDisplay.text = "" + gold;
         SoulsDisplay.text = "" + souls;
 
+        ExchangeButton = ExchangeButtonObject.GetComponent<Button>();
+
+        ExchangeButton.interactable = souls > 0;
+        
         audioSource = GetComponent<AudioSource>();
+
+        schedule = new List<(int, SpawnPattern)>();
+
+        //          Time                  S  T  N  R 
+        schedule.Add((1, new SpawnPattern(3, 1, 1, 0)));
+
+        schedule.Add((2, new SpawnPattern(4, 1, 2, 2)));
+
+        schedule.Add((3, new SpawnPattern(5, 1, 1, 0)));
+
+        nextSpawn = 0;
+
     }
 
     public void UpdateUI()
@@ -59,6 +85,15 @@ public class LevelManager : MonoBehaviour
         }
         GoldDisplay.text = "" + gold;
         SoulsDisplay.text = "" + souls;
+
+        ExchangeButton.interactable = souls > 0;
+    }
+
+    public void ExchangeSoul()
+    {
+        souls--;
+        gold += 200;
+        UpdateUI();
     }
 
     public void PlaySound(AudioClip a)
@@ -68,7 +103,22 @@ public class LevelManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
+    {        
+        if(phase > 0)
+        {
+            timer+=Time.deltaTime;
+            
+            if(nextSpawn < schedule.Count && timer >= schedule[nextSpawn].Item1)
+            {
+                SpawnPattern s = schedule[nextSpawn].Item2;
+
+                nextSpawn++;
+
+                GameObject.Find(s.source).GetComponent<EnemySpawn>().addToQueue(s);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.S) && ExchangeButton.interactable)
+            ExchangeSoul();
     }
 }

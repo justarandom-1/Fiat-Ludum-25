@@ -48,7 +48,7 @@ public class TowerSelector : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Tower"){
+        if(other.gameObject.tag == "Tower" || other.gameObject.tag == "Environment"){
             overlaps++;
             spriteRenderer.color = warning;
         }
@@ -56,7 +56,7 @@ public class TowerSelector : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Tower")
+        if(other.gameObject.tag == "Tower" || other.gameObject.tag == "Environment")
             if(overlaps <= 0)
                 overlaps = 0;
             else
@@ -95,8 +95,11 @@ public class TowerSelector : MonoBehaviour
             GameObject n = Instantiate(TowerObjects[(int)selectedTower], 
                                        new Vector3(transform.position.x, transform.position.y, -1), 
                                        Quaternion.identity * TowerObjects[(int)selectedTower].transform.localRotation);
-            if(selectedTower == Tower.Base)
+            if(selectedTower == Tower.Base){
                 LevelManager.Base = n;
+                if(LevelManager.phase == 0)
+                    LevelManager.phase = 1;
+            }
             LevelManager.gold -= TowerCosts[(int)selectedTower];
             LevelManager.instance.UpdateUI();
             SelectTower(0);
