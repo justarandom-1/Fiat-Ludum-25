@@ -68,32 +68,39 @@ public class LevelManager : MonoBehaviour
         //          Time                  S  T  N  R 
         schedule.Add((1, new SpawnPattern(3, 1, 1, 0)));
 
-        schedule.Add((2, new SpawnPattern(4, 1, 2, 2)));
+        // schedule.Add((2, new SpawnPattern(4, 1, 2, 2)));
 
-        schedule.Add((3, new SpawnPattern(5, 1, 1, 0)));
+        // schedule.Add((3, new SpawnPattern(5, 1, 1, 0)));
 
         nextSpawn = 0;
 
     }
 
-    public void UpdateUI()
+    private void UpdateUI()
     {
-        TowerButtons[1].interactable = Base == null;        
-        for(int i = 2; i < TowerButtons.Count; i++)
-        {
-            TowerButtons[i].interactable = TowerSelector.TowerCosts[i] <= gold;
-        }
+        TowerButtons[1].interactable = Base == null; 
+
+        if(phase != 0)    
+            for(int i = 2; i < TowerButtons.Count; i++)
+                TowerButtons[i].interactable = TowerSelector.TowerCosts[i] <= gold;
+        
         GoldDisplay.text = "" + gold;
         SoulsDisplay.text = "" + souls;
 
         ExchangeButton.interactable = souls > 0;
     }
 
-    public void ExchangeSoul()
+    public static void ExchangeSoul()
     {
         souls--;
         gold += 200;
-        UpdateUI();
+        LevelManager.instance.UpdateUI();
+    }
+
+    public static void AddGold(int value)
+    {
+        gold += value;
+        LevelManager.instance.UpdateUI();
     }
 
     public void PlaySound(AudioClip a)

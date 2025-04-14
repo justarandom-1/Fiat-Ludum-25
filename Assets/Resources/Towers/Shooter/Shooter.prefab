@@ -4930,7 +4930,7 @@ GameObject:
   - component: {fileID: -2671692161992882090}
   m_Layer: 0
   m_Name: Shooter
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5161,6 +5161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 80
+  RuinsObject: {fileID: 2617694580837047233, guid: 2f98016d0aeab154896fb1b97a7eaa23, type: 3}
 --- !u!1001 &8633264837127240633
 PrefabInstance:
   m_ObjectHideFlags: 0

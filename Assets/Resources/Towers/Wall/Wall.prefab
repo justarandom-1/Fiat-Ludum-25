@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -2886106324183291859}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -267,6 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 150
+  RuinsObject: {fileID: 2617694580837047233, guid: eb2c169e9f670104e88491e416c2df6f, type: 3}
 --- !u!1 &5396535802558472589
 GameObject:
   m_ObjectHideFlags: 0

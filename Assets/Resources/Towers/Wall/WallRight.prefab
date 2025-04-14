@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2886106324183291859, guid: 95cc8cad0c3eb754bb1520a3caa5f47e, type: 3}
+      propertyPath: RuinsObject
+      value: 
+      objectReference: {fileID: 2617694580837047233, guid: 4a00e6c34d851724eb4fc21fa49f55ff, type: 3}
     - target: {fileID: 1015027395839626050, guid: 95cc8cad0c3eb754bb1520a3caa5f47e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068

@@ -12,7 +12,7 @@ public class HPBar : MonoBehaviour
     private Vector3 offset;
     void Start()
     {
-        healthbar = transform.GetChild(0).gameObject.GetComponent<RectTransform>();
+        healthbar = transform.GetChild(1).gameObject.GetComponent<RectTransform>();
 
         parent = transform.parent;
         parentScript = parent.gameObject.GetComponent<GameEntity>();

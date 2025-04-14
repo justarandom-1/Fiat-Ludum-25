@@ -33,22 +33,28 @@ public class TowerSelector : MonoBehaviour
     [SerializeField] int overlaps;
     private Color preview;
     private Color warning;
+    private Collider2D collider_;
+    private Animator animator;
 
     [SerializeField] AudioClip buildSFX;
 
     // Start is called before the first frame update
     void Start()
     {
+        
         spriteRenderer = GetComponent<SpriteRenderer>();
         TowerCosts = Costs;
         overlaps = 0;
 
         preview = spriteRenderer.color;
         warning = new Color(1, 0, 0, 0.5f);
+
+        collider_ = GetComponent<Collider2D>();
+        animator = GetComponent<Animator>();
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Tower" || other.gameObject.tag == "Environment"){
+        if(other.gameObject.tag == "Tower" || other.gameObject.tag == "Environment" || other.gameObject.tag == "Ruin" || other.gameObject.tag == "Enemy"){
             overlaps++;
             spriteRenderer.color = warning;
         }
@@ -56,7 +62,7 @@ public class TowerSelector : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Tower" || other.gameObject.tag == "Environment")
+        if(other.gameObject.tag == "Tower" || other.gameObject.tag == "Environment" || other.gameObject.tag == "Ruin" || other.gameObject.tag == "Enemy")
             if(overlaps <= 0)
                 overlaps = 0;
             else
@@ -68,7 +74,13 @@ public class TowerSelector : MonoBehaviour
     public void SelectTower(int n)
     {
         selectedTower = (Tower)n;
-        spriteRenderer.sprite = PreviewImgs[n];      
+
+        animator.Play(n.ToString()); 
+
+        if(n > 0)
+            GetComponent<Collider2D>().enabled = true;
+        else
+            GetComponent<Collider2D>().enabled = false;      
     }
 
     // Update is called once per frame
@@ -100,8 +112,7 @@ public class TowerSelector : MonoBehaviour
                 if(LevelManager.phase == 0)
                     LevelManager.phase = 1;
             }
-            LevelManager.gold -= TowerCosts[(int)selectedTower];
-            LevelManager.instance.UpdateUI();
+            LevelManager.AddGold(-1 * TowerCosts[(int)selectedTower]);
             SelectTower(0);
         }
     }
