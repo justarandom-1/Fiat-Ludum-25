@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 751742895089434037}
   - component: {fileID: 8954877597875237398}
   - component: {fileID: 430843091936410094}
-  - component: {fileID: -2886106324183291859}
+  - component: {fileID: -1132617552794690005}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Tower
@@ -254,7 +254,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-2886106324183291859
+--- !u!114 &-1132617552794690005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,10 +263,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2249032046222178030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcac64431d5714240b69bb72b90bad27, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d465a6e1aaec1f4b956d462986ce9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 150
+  power: 30
   RuinsObject: {fileID: 2617694580837047233, guid: eb2c169e9f670104e88491e416c2df6f, type: 3}
 --- !u!1 &5396535802558472589
 GameObject:

@@ -37,6 +37,16 @@ public class Ruin : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public int getValue()
+    {
+        return value;
+    }
+
+    public int getType()
+    {
+        return type;
+    }
+
     // Update is called once per frame
     void Update()
     {

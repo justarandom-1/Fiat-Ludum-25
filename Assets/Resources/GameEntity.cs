@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameEntity : MonoBehaviour
 {
     [SerializeField] protected int maxHealth;
+    [SerializeField] protected int power;
+    protected AudioClip deathSound;
     protected int curHealth;
     protected Rigidbody2D rb;
 
@@ -18,16 +20,17 @@ public class GameEntity : MonoBehaviour
     {
         curHealth = Mathf.Max(0, curHealth - dmg);
         if(curHealth == 0)
-            kill();
+            this.kill();
     }
 
-    virtual protected void kill()
+    protected virtual void kill()
     {
-
+        LevelManager.instance.PlaySound(deathSound);
+        Destroy(gameObject);
     }
 
     public float getHealth()
     {
-        return curHealth / maxHealth;
+        return (float)curHealth / maxHealth;
     }
 }

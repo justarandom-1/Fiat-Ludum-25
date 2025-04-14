@@ -8,6 +8,7 @@ using Pathfinding;
 public class EnemyMovement : GameEntity
 {
     [SerializeField] protected float speed;
+    [SerializeField] protected int value;
     protected bool isMoving;
 
     protected Transform Base;
@@ -23,6 +24,8 @@ public class EnemyMovement : GameEntity
     new protected void Start()
     {
         base.Start();
+
+        deathSound = Resources.Load<AudioClip>("SFX/angelDeath");
 
         seeker = GetComponent<Seeker>();
 
@@ -48,22 +51,26 @@ public class EnemyMovement : GameEntity
         }
     }
 
-    new protected void kill()
+    protected override void kill()
     {
-
+        LevelManager.AddSouls(value);
+        
+        base.kill();
     }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // if the enemy reaches the tower, stop moving
-        // if (collision.collider.CompareTag("Tower"))
-        // {
-        //     isMoving = false;
-        // }
 
         if (collision.collider.CompareTag("Enemy"))
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        }
+
+        if (collision.collider.CompareTag("Tower"))
+        {
+            Vector3 otherPosition = collision.transform.position;
+            Vector2 force = (Vector2)(transform.position - otherPosition).normalized;
+            rb.AddForce(force * 100);
+            collision.gameObject.GetComponent<TowerController>().takeDamage(power);
         }
     }
 
@@ -72,8 +79,6 @@ public class EnemyMovement : GameEntity
         if(v.magnitude == 0) return 0;
 
         float r = Mathf.Asin(v.y / v.magnitude) * 180 / Mathf.PI;
-
-        Debug.Log(r);
 
         if(v.x < 0)
             return 180 - r;

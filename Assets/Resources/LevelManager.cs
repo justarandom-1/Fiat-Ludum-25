@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
     public static Button ExchangeButton;
     [SerializeField] GameObject ExchangeButtonObject;
 
-    private List<(int, SpawnPattern)> schedule;
+    private List<(float, SpawnPattern)> schedule;
 
     float timer = 0;
 
@@ -63,14 +63,16 @@ public class LevelManager : MonoBehaviour
         
         audioSource = GetComponent<AudioSource>();
 
-        schedule = new List<(int, SpawnPattern)>();
+        schedule = new List<(float, SpawnPattern)>();
 
         //          Time                  S  T  N  R 
         schedule.Add((1, new SpawnPattern(3, 1, 1, 0)));
 
-        // schedule.Add((2, new SpawnPattern(4, 1, 2, 2)));
+        schedule.Add((1.5f, new SpawnPattern(0, 1, 5, 1)));
 
-        // schedule.Add((3, new SpawnPattern(5, 1, 1, 0)));
+        schedule.Add((2, new SpawnPattern(4, 1, 2, 2)));
+
+        schedule.Add((3, new SpawnPattern(5, 1, 1, 0)));
 
         nextSpawn = 0;
 
@@ -90,16 +92,23 @@ public class LevelManager : MonoBehaviour
         ExchangeButton.interactable = souls > 0;
     }
 
-    public static void ExchangeSoul()
+    public void ExchangeSoul()
     {
         souls--;
-        gold += 200;
+        gold += 100;
         LevelManager.instance.UpdateUI();
+        PlaySound(Resources.Load<AudioClip>("SFX/soulForCash"));
     }
 
     public static void AddGold(int value)
     {
         gold += value;
+        LevelManager.instance.UpdateUI();
+    }
+
+    public static void AddSouls(int value)
+    {
+        souls += value;
         LevelManager.instance.UpdateUI();
     }
 

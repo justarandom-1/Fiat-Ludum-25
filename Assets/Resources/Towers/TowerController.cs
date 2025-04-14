@@ -9,15 +9,18 @@ public class TowerController : GameEntity
     new protected void Start()
     {
         base.Start();
+
+        deathSound = Resources.Load<AudioClip>("SFX/towerDestruction");
     }
 
 
-    new protected void kill()
+    protected override void kill()
     {
         Instantiate(RuinsObject, 
                     transform.position, 
                     transform.rotation);
-        Destroy(gameObject);
+        
+        base.kill();
     }
 
     // Update is called once per frame
