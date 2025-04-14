@@ -6,13 +6,13 @@ public class TowerController : GameEntity
 {
     // Start is called before the first frame update
     [SerializeField] GameObject RuinsObject;
-    new protected void Start()
+    [SerializeField] int type;
+    protected override void Start()
     {
         base.Start();
 
         deathSound = Resources.Load<AudioClip>("SFX/towerDestruction");
     }
-
 
     protected override void kill()
     {
@@ -23,9 +23,18 @@ public class TowerController : GameEntity
         base.kill();
     }
 
-    // Update is called once per frame
-    void Update()
+    public int getType()
     {
-        
+        return type;
+    }
+
+    public float getX()
+    {
+        return transform.position.x;
+    }
+
+    public float getY()
+    {
+        return transform.position.y;
     }
 }

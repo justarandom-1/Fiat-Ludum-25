@@ -5,28 +5,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
-    public static int gold;
-    public static int souls;
+    public int gold;
+    public int souls;
 
-    public static int phase;
-    public static GameObject Base;
-    public static GameObject LowerMenu;
-    public static List<Button> TowerButtons = new List<Button>();
+    public int phase;
+    public GameObject Base = null;
+    public GameObject LowerMenu;
+    public List<Button> TowerButtons = new List<Button>();
 
-    [SerializeField] List<GameObject> TowerButtonObjects;
-    public static TMP_Text GoldDisplay;
-    public static TMP_Text SoulsDisplay;
+    public TMP_Text GoldDisplay;
+    public TMP_Text SoulsDisplay;
 
-    [SerializeField] GameObject GoldText;
-    [SerializeField] GameObject SoulsText;
-
-    public static Button ExchangeButton;
-    [SerializeField] GameObject ExchangeButtonObject;
+    public Button ExchangeButton;
 
     private List<(float, SpawnPattern)> schedule;
 
@@ -45,23 +42,29 @@ public class LevelManager : MonoBehaviour
         gold = 500;
         souls = PlayerPrefs.GetInt("souls", 0);
 
+        SaveManager.instance.LoadData();
+
         TowerButtons.Add(null);
 
-        foreach(GameObject button in TowerButtonObjects)
-            if(button && button.GetComponent<Button>())
-                TowerButtons.Add(button.GetComponent<Button>());
+        Transform TowerBar = GameObject.Find("TowerBar").transform;
 
-        GoldDisplay = GoldText.GetComponent<TMP_Text>();
-        SoulsDisplay = SoulsText.GetComponent<TMP_Text>();
+        for(int i = 0; i < 5; i++)
+            TowerButtons.Add(TowerBar.GetChild(i).gameObject.GetComponent<Button>());
+
+        GoldDisplay = GameObject.Find("GoldText").GetComponent<TMP_Text>();
+        SoulsDisplay = GameObject.Find("SoulsText").GetComponent<TMP_Text>();
         
         GoldDisplay.text = "" + gold;
         SoulsDisplay.text = "" + souls;
 
-        ExchangeButton = ExchangeButtonObject.GetComponent<Button>();
+        ExchangeButton = GameObject.Find("Exchange").GetComponent<Button>();
 
         ExchangeButton.interactable = souls > 0;
         
         audioSource = GetComponent<AudioSource>();
+
+        nextSpawn = 0;
+
 
         schedule = new List<(float, SpawnPattern)>();
 
@@ -74,7 +77,31 @@ public class LevelManager : MonoBehaviour
 
         schedule.Add((3, new SpawnPattern(5, 1, 1, 0)));
 
-        nextSpawn = 0;
+
+
+        schedule.Add((10, new SpawnPattern(1, 1, 5, 1)));
+
+        schedule.Add((10, new SpawnPattern(6, 1, 5, 1)));
+
+        schedule.Add((10, new SpawnPattern(1, 1, 5, 1)));
+
+        schedule.Add((10, new SpawnPattern(10, 1, 5, 1)));
+
+
+        schedule.Add((25, new SpawnPattern(3, 1, 5, 1)));
+
+        schedule.Add((25, new SpawnPattern(4, 1, 8, 1)));
+
+        schedule.Add((25, new SpawnPattern(5, 1, 5, 1)));
+
+        schedule.Add((30, new SpawnPattern(4, 2, 3, 3)));
+
+
+        schedule.Add((45, new SpawnPattern(7, 2, 3, 1)));
+        schedule.Add((45, new SpawnPattern(1, 1, 4, 1)));
+        schedule.Add((45, new SpawnPattern(5, 1, 4, 1)));
+        schedule.Add((45, new SpawnPattern(9, 1, 4, 1)));
+        schedule.Add((47, new SpawnPattern(6, 3, 1, 0)));
 
     }
 
@@ -100,16 +127,16 @@ public class LevelManager : MonoBehaviour
         PlaySound(Resources.Load<AudioClip>("SFX/soulForCash"));
     }
 
-    public static void AddGold(int value)
+    public void AddGold(int value)
     {
         gold += value;
-        LevelManager.instance.UpdateUI();
+        UpdateUI();
     }
 
-    public static void AddSouls(int value)
+    public void AddSouls(int value)
     {
         souls += value;
-        LevelManager.instance.UpdateUI();
+        UpdateUI();
     }
 
     public void PlaySound(AudioClip a)
@@ -120,8 +147,13 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {        
-        if(phase > 0)
+        if(phase == 1)
         {
+            if(Base == null){
+                phase = 2; 
+                GameObject.Find("black").GetComponent<Animator>().Play("endLevel");
+            }
+
             timer+=Time.deltaTime;
             
             if(nextSpawn < schedule.Count && timer >= schedule[nextSpawn].Item1)
@@ -136,5 +168,14 @@ public class LevelManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S) && ExchangeButton.interactable)
             ExchangeSoul();
+
+        if(phase == 2){
+            audioSource.volume = Mathf.Max(0, audioSource.volume - Time.deltaTime);
+            if(audioSource.volume == 0){
+                PlayerPrefs.SetInt("souls", souls);
+                SaveManager.instance.SaveData();
+                SceneManager.LoadScene("Menu");
+            }
+        }
     }
 }

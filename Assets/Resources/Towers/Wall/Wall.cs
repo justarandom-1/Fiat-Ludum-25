@@ -11,4 +11,12 @@ public class Wall : TowerController
             collision.gameObject.GetComponent<EnemyMovement>().takeDamage(power);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            other.gameObject.GetComponent<EnemyMovement>().takeDamage(power);
+        }
+    }
 }

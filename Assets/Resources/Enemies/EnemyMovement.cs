@@ -17,32 +17,35 @@ public class EnemyMovement : GameEntity
 
     protected Path path;
     protected int currentWaypoint = 0;
-    bool reachedTarget = false;
+    protected bool reachedTarget = false;
 
-    Seeker seeker;
+    protected Seeker seeker;
     // Start is called before the first frame update
-    new protected void Start()
+    protected override void Start()
     {
         base.Start();
 
-        deathSound = Resources.Load<AudioClip>("SFX/angelDeath");
+        deathSound = Resources.Load<AudioClip>("SFX/angelDeathSound");
 
         seeker = GetComponent<Seeker>();
 
         isMoving = true;
 
-        Base = LevelManager.Base.transform;
+        if(LevelManager.instance.Base != null)
+            Base = LevelManager.instance.Base.transform;
 
         UpdatePath();
         
     }
 
-    void UpdatePath()
+    protected void UpdatePath()
     {
+        if(Base == null) return;
+
         seeker.StartPath(rb.position, Base.position, OnPathComplete);
     }
 
-    void OnPathComplete(Path p)
+    protected void OnPathComplete(Path p)
     {
         if(!p.error)
         {
@@ -53,7 +56,9 @@ public class EnemyMovement : GameEntity
 
     protected override void kill()
     {
-        LevelManager.AddSouls(value);
+        LevelManager.instance.AddSouls(value);
+
+        value = 0;
         
         base.kill();
     }
@@ -87,7 +92,7 @@ public class EnemyMovement : GameEntity
     }
 
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if(path != null)
         {
@@ -104,12 +109,12 @@ public class EnemyMovement : GameEntity
 
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
+            if (distance < nextWayPointDistance)
+                currentWaypoint++;
+
             transform.rotation = Quaternion.identity;
 
             transform.Rotate(0, 0, VectorToAngle(direction) - 90);
-
-            if (distance < nextWayPointDistance)
-                currentWaypoint++;
         }
     }
 }

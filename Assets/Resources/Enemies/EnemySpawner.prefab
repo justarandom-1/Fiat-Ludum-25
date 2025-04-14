@@ -48,6 +48,9 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 0}
   - {fileID: 6943289026118764476, guid: d82f31c4d57a4b7479e04825a767332f, type: 3}
+  - {fileID: 825426539202940268, guid: f4e8e1c0d458d414c8c65774169c4ab1, type: 3}
+  - {fileID: 8296290057249043728, guid: ae4f5b82fb5cf364ab3a581159737f24, type: 3}
+  - {fileID: 6943289026118764476, guid: d82f31c4d57a4b7479e04825a767332f, type: 3}
   timer: 0
 --- !u!212 &4029761067723439071
 SpriteRenderer:

@@ -5,71 +5,76 @@ using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NewBehaviourScript : MonoBehaviour
+public class SaveManager : MonoBehaviour
 {
-    [SerializeField] private Button saveButton;
-    [SerializeField] private Button loadButton;
-    [SerializeField] private Button deleteButton;
+    [SerializeField] List<GameObject> Towers;
+    [SerializeField] List<GameObject> Ruins;
+    public static SaveManager instance; 
 
-    [SerializeField] private GameObject tower;
-    [SerializeField] private int towerType;
+    private List<TowerData> savedData = new List<TowerData>();
 
-    private string filePath = Application.persistentDataPath + "/gameData.txt";
-
-    void Start()
+    private void Awake()
     {
-        saveButton.onClick.AddListener(SaveData);
-        loadButton.onClick.AddListener(LoadData);
-        deleteButton.onClick.AddListener(DeleteData);
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+    
+    struct TowerData
+    {
+        public int type;
+        public float x;
+        public float y;
+        public int hp;
     }
 
     // runs when save button is clicked
-    void SaveData()
+    public void SaveData()
     {
-        // called to hold tower coords
-        Vector3 position = tower.transform.position;
-        // save game objects to the list
-        string gameDataStr;
-        string towerCoords = $"{position.x},{position.y},{position.z}";
-        gameDataStr = $"{towerType} {towerCoords}";
-        // save list to filePath
-        File.WriteAllText(filePath, gameDataStr);
+        savedData = new List<TowerData>();
+
+        var allRuins = FindObjectsByType<Ruin>(FindObjectsSortMode.None);
+
+        foreach(Ruin r in allRuins)
+            savedData.Add(new TowerData{
+                            type = r.getType(),
+                            x = r.getX(),
+                            y = r.getY(),
+                            hp = 0
+                         });
+
+        var allTowers = FindObjectsByType<TowerController>(FindObjectsSortMode.None);
+
+        foreach(TowerController t in allTowers)
+            savedData.Add(new TowerData{
+                            type = t.getType(),
+                            x = t.getX(),
+                            y = t.getY(),
+                            hp = t.GetHealth()
+                         });
     }
 
     // called when load button is clicked
     public void LoadData()
     {
-        // if filePath can be found:
-        if (File.Exists(filePath))
-        {
-            // open streamreader
-            StreamReader dataReader = new StreamReader(filePath);
-            // read line
-            string line = dataReader.ReadLine();
-            dataReader.Close();
-            // parse + move existing tower to same position
-            string[] myData = line.Split(' ');
-            int towerType = int.Parse(myData[0]);
-            string[] coords = myData[1].Split(',');
-            Vector3 towerCoordinates = new Vector3(
-                float.Parse(coords[0]), 
-                float.Parse(coords[1]), 
-                float.Parse(coords[2])
-                );
-
-            tower.transform.position = towerCoordinates;
-        }
-        else
-        {
-            // otherwise return error:
-            Debug.LogError("You need to save an existing game before you can load a game");
+        foreach(TowerData t in savedData){
+            if(t.hp == 0)
+                Instantiate(Ruins[t.type], 
+                            new Vector3(t.x, t.y, -1), 
+                            Quaternion.identity * Ruins[t.type].transform.localRotation);
+            else
+            {
+                GameObject newTower = Instantiate(Towers[t.type], 
+                                                  new Vector3(t.x, t.y, -1), 
+                                                  Quaternion.identity * Towers[t.type].transform.localRotation);
+                newTower.GetComponent<TowerController>().setHealth(t.hp);
+            }
         }
     }
 
-    // called when delete data is clicked
-    void DeleteData()
-    {
-        // open filePath
-        // delete all data
-    }
 }

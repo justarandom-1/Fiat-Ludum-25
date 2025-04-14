@@ -19,20 +19,20 @@ public class Ruin : MonoBehaviour
 
     void OnMouseEnter()
     {
-        Debug.Log("over");
+        // Debug.Log("over");
         spriteRenderer.color = selected;
     }
 
     void OnMouseExit()
     {
-        Debug.Log("off");
+        // Debug.Log("off");
         spriteRenderer.color = Color.white;
     }
 
     void OnMouseDown()
     {
         LevelManager.instance.PlaySound(collectSFX);
-        LevelManager.AddGold(value);
+        LevelManager.instance.AddGold(value);
         // Destroy the gameObject after clicking on it
         Destroy(gameObject);
     }
@@ -45,6 +45,16 @@ public class Ruin : MonoBehaviour
     public int getType()
     {
         return type;
+    }
+
+    public float getX()
+    {
+        return transform.position.x;
+    }
+
+    public float getY()
+    {
+        return transform.position.y;
     }
 
     // Update is called once per frame

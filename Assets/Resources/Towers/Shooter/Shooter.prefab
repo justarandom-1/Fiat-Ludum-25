@@ -26,10 +26,11 @@ Transform:
   m_GameObject: {fileID: 2929976756501709483}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.01}
+  m_LocalPosition: {x: 0, y: 0, z: -0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 4560170772826415150}
   m_Father: {fileID: 4823981630678309972}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2633076832770401677
@@ -84,6 +85,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4695778521799501772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4560170772826415150}
+  m_Layer: 0
+  m_Name: barrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4560170772826415150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4695778521799501772}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.57, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1196477782745623571}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7372305274692267249
 GameObject:
   m_ObjectHideFlags: 0
@@ -4927,7 +4959,7 @@ GameObject:
   - component: {fileID: 403692933525072849}
   - component: {fileID: 6193701347115916354}
   - component: {fileID: 3928210756885577730}
-  - component: {fileID: -2671692161992882090}
+  - component: {fileID: 114582975933366892}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Tower
@@ -5148,7 +5180,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-2671692161992882090
+--- !u!114 &114582975933366892
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5157,11 +5189,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8802292391076179982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcac64431d5714240b69bb72b90bad27, type: 3}
+  m_Script: {fileID: 11500000, guid: 750d610b864f340c7a6783ed66ea766d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 80
+  power: 50
   RuinsObject: {fileID: 2617694580837047233, guid: 2f98016d0aeab154896fb1b97a7eaa23, type: 3}
+  type: 4
+  projectilePrefab: {fileID: 5744074267609081358, guid: b8a5ca2d656b34668833774f48834c76, type: 3}
+  range: 5
+  rotationSpeed: 360
+  fireRate: 1
+  fireSFX: {fileID: 8300000, guid: f047a8cdf25b1ab4db2797c55b5a8664, type: 3}
 --- !u!1001 &8633264837127240633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5240,7 +5279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6288482354122081601, guid: 9990dada46af230418a983e6712aaa3d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.77
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 6288482354122081601, guid: 9990dada46af230418a983e6712aaa3d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

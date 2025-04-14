@@ -88,7 +88,7 @@ public class TowerSelector : MonoBehaviour
     {
         for(int i = 1; i <= 5; i++)
             if (Input.GetKeyDown("" + i))
-                if(LevelManager.TowerButtons[i].interactable && (int)selectedTower != i)
+                if(LevelManager.instance.TowerButtons[i].interactable && (int)selectedTower != i)
                     SelectTower(i);
                 
                 else 
@@ -108,12 +108,14 @@ public class TowerSelector : MonoBehaviour
                                        new Vector3(transform.position.x, transform.position.y, -1), 
                                        Quaternion.identity * TowerObjects[(int)selectedTower].transform.localRotation);
             if(selectedTower == Tower.Base){
-                LevelManager.Base = n;
-                if(LevelManager.phase == 0)
-                    LevelManager.phase = 1;
+                Debug.Log("Built base");
+                LevelManager.instance.Base = n;
+                if(LevelManager.instance.phase == 0)
+                    LevelManager.instance.phase = 1;
             }
-            LevelManager.AddGold(-1 * TowerCosts[(int)selectedTower]);
+            LevelManager.instance.AddGold(-1 * TowerCosts[(int)selectedTower]);
             SelectTower(0);
+            Debug.Log("Build");
         }
     }
 }

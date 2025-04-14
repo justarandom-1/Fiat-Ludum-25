@@ -365,6 +365,7 @@ MonoBehaviour:
   maxHealth: 250
   power: 0
   RuinsObject: {fileID: 2617694580837047233, guid: 658176fec791dc44ead170a88c0a0481, type: 3}
+  type: 1
 --- !u!1 &2914699366438273260
 GameObject:
   m_ObjectHideFlags: 0
