@@ -179,7 +179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Title
+  m_text: Fallen Grace
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9479b2c85bd4a7d499bd75980b907078, type: 2}
   m_sharedMaterial: {fileID: -7790906623289756804, guid: 9479b2c85bd4a7d499bd75980b907078, type: 2}

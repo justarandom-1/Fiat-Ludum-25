@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.SceneManagement;
 
 
-public class Seraphim : EnemyMovement
+public class QI : EnemyMovement
 {
     // [SerializeField] protected float speed;
     // [SerializeField] protected int value;
@@ -27,10 +28,21 @@ public class Seraphim : EnemyMovement
 
 
     [SerializeField] float fireRate;
+
+    [SerializeField] float teleportRate;
     private Transform hand;
 
     private float timer = 1;
 
+    private float teleportTimer = 0;
+
+    private Animator animator;
+
+    private GameObject beam = null;
+
+    private int state;
+
+    [SerializeField] List<Vector2> teleportCoordinates;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -38,8 +50,18 @@ public class Seraphim : EnemyMovement
         base.Start();
 
         hand = transform.GetChild(3);        
+
+        animator = GetComponent<Animator>();
+
+        state = 0;
     }
 
+    protected override void kill()
+    {
+        SceneManager.LoadScene("WinningScene");
+        
+        base.kill();
+    }
     void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -72,6 +94,29 @@ public class Seraphim : EnemyMovement
 
     protected override void FixedUpdate()
     {
+        if(state == 1)
+        {
+            if(animator.GetCurrentAnimatorStateInfo(0).IsName("MidTeleport")){
+                state = 0;
+                animator.Play("Appear");
+                UpdatePath();
+                teleportTimer = teleportRate;
+            }
+
+            return;
+        }
+
+        teleportTimer = Mathf.Max(teleportTimer - Time.deltaTime, 0);
+
+        if(teleportTimer == 0 && beam == null)
+        {
+            state = 1;
+            animator.Play("Teleport");
+            Vector2 target = teleportCoordinates[Random.Range(0, teleportCoordinates.Count)];
+            transform.position = new Vector3(target.x, target.y, transform.position.z);
+            return;
+        }
+
         if(path != null)
         {
             if(currentWaypoint >= path.vectorPath.Count){
@@ -107,10 +152,12 @@ public class Seraphim : EnemyMovement
         xDirection = xDirection / Mathf.Abs(xDirection);
         
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1 * xDirection, transform.localScale.y, transform.localScale.z);
+
     }
 
     protected void FireProjectile()
     {
         GameObject projectile = Instantiate(projectilePrefab, hand.position, Quaternion.identity);
+        projectile.GetComponent<QIBeam>().Initialize(hand);
     }
 }
