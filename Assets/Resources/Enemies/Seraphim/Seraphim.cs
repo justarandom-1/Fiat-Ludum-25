@@ -72,6 +72,9 @@ public class Seraphim : EnemyMovement
 
     protected override void FixedUpdate()
     {
+        if(Base == null)
+            return;
+
         if(path != null)
         {
             if(currentWaypoint >= path.vectorPath.Count){

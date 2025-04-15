@@ -23,6 +23,9 @@ public class HPBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(transform.localScale.x < 0)
+            transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
         healthbar.sizeDelta = new Vector2(60 * parentScript.getHealth(), healthbar.sizeDelta.y);
 
         transform.position = parent.position + offset;

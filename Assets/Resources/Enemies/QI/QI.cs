@@ -30,6 +30,8 @@ public class QI : EnemyMovement
     [SerializeField] float fireRate;
 
     [SerializeField] float teleportRate;
+
+    [SerializeField] AudioClip teleportSFX;
     private Transform hand;
 
     private float timer = 1;
@@ -44,6 +46,10 @@ public class QI : EnemyMovement
 
     [SerializeField] List<Vector2> teleportCoordinates;
 
+    int prevTeleport = 3;
+
+    private List<GameObject> allTowers = new List<GameObject>();
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -54,6 +60,11 @@ public class QI : EnemyMovement
         animator = GetComponent<Animator>();
 
         state = 0;
+
+        var data = FindObjectsByType<TowerController>(FindObjectsSortMode.None);
+
+        foreach(TowerController t in data)
+            allTowers.Add(t.gameObject);
     }
 
     protected override void kill()
@@ -94,6 +105,17 @@ public class QI : EnemyMovement
 
     protected override void FixedUpdate()
     {
+
+        allTowers.RemoveAll(item => item == null);
+
+        if(Base == null)
+            return;
+
+        xDirection = Base.position.x - transform.position.x;
+        xDirection = xDirection / Mathf.Abs(xDirection);
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1 * xDirection, transform.localScale.y, transform.localScale.z);
+
+
         if(state == 1)
         {
             if(animator.GetCurrentAnimatorStateInfo(0).IsName("MidTeleport")){
@@ -110,10 +132,19 @@ public class QI : EnemyMovement
 
         if(teleportTimer == 0 && beam == null)
         {
+            rb.velocity = new Vector2(0, 0);
             state = 1;
             animator.Play("Teleport");
-            Vector2 target = teleportCoordinates[Random.Range(0, teleportCoordinates.Count)];
+
+            int i = Random.Range(0, teleportCoordinates.Count);
+
+            while(i == prevTeleport)
+                i = Random.Range(0, teleportCoordinates.Count);
+
+            Vector2 target = teleportCoordinates[i];
             transform.position = new Vector3(target.x, target.y, transform.position.z);
+            prevTeleport = i;
+            LevelManager.instance.PlaySound(teleportSFX);
             return;
         }
 
@@ -147,17 +178,12 @@ public class QI : EnemyMovement
 
             }
         }
-
-        xDirection = Base.position.x - transform.position.x;
-        xDirection = xDirection / Mathf.Abs(xDirection);
-        
-        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1 * xDirection, transform.localScale.y, transform.localScale.z);
-
+    
     }
 
     protected void FireProjectile()
     {
-        GameObject projectile = Instantiate(projectilePrefab, hand.position, Quaternion.identity);
-        projectile.GetComponent<QIBeam>().Initialize(hand);
+        beam = Instantiate(projectilePrefab, hand.position, Quaternion.identity);
+        beam.GetComponent<QIBeam>().Initialize(hand, allTowers.Count);
     }
 }

@@ -17,7 +17,7 @@ public class TowerController : GameEntity
     protected override void kill()
     {
         Instantiate(RuinsObject, 
-                    transform.position, 
+                    new Vector3(transform.position.x, transform.position.y, -1), 
                     transform.rotation);
         
         base.kill();

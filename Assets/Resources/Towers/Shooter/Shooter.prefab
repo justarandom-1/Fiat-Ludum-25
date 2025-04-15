@@ -5199,7 +5199,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5744074267609081358, guid: b8a5ca2d656b34668833774f48834c76, type: 3}
   range: 5
   rotationSpeed: 360
-  fireRate: 1
+  fireRate: 1.5
   fireSFX: {fileID: 8300000, guid: f047a8cdf25b1ab4db2797c55b5a8664, type: 3}
 --- !u!1001 &8633264837127240633
 PrefabInstance:

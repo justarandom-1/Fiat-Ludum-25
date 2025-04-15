@@ -46,6 +46,9 @@ public class AngelProjectile : MonoBehaviour
 
         for(int i = 0; i < allTowers.Length; i++)
         {
+            if(allTowers[i].gameObject == LevelManager.instance.Base && allTowers.Length > 1 && Random.Range(0, 2) == 0)
+                continue;
+
             Transform g = allTowers[i].gameObject.transform;
             float dist = Vector2.Distance(g.position, transform.position);
 

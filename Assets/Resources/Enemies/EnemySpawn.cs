@@ -49,7 +49,7 @@ public class EnemySpawn : MonoBehaviour
         else
             if(currentPattern.num > 0 && enemyPrefabs[currentPattern.type] != null){
                 Instantiate(enemyPrefabs[currentPattern.type], 
-                            new Vector3(transform.position.x, transform.position.y, -1), 
+                            new Vector3(transform.position.x, transform.position.y, enemyPrefabs[currentPattern.type].transform.position.z), 
                             Quaternion.identity * enemyPrefabs[currentPattern.type].transform.localRotation);
                 currentPattern.num--;
                 

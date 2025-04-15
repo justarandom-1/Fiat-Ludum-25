@@ -36,10 +36,8 @@ public class Projectile : MonoBehaviour
         rb.velocity = speed * direction;
     }
 
-    void FixedUpdateUpdate()
+    void FixedUpdate()
     {
-        if(direction != null)
-            rb.velocity = speed * direction;
 
         if((startPos - transform.position).magnitude > range || !spriteRenderer.isVisible)
             Destroy(gameObject);

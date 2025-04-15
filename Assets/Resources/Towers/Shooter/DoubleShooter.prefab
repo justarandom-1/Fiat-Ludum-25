@@ -173,7 +173,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5744074267609081358, guid: b8a5ca2d656b34668833774f48834c76, type: 3}
   range: 6
   rotationSpeed: 540
-  fireRate: 0.6
+  fireRate: 1
   fireSFX: {fileID: 8300000, guid: f047a8cdf25b1ab4db2797c55b5a8664, type: 3}
 --- !u!4 &8658492031737788709 stripped
 Transform:

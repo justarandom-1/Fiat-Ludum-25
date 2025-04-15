@@ -45,7 +45,7 @@ public class SaveManager : MonoBehaviour
                             type = r.getType(),
                             x = r.getX(),
                             y = r.getY(),
-                            hp = 0
+                            hp = -1
                          });
 
         var allTowers = FindObjectsByType<TowerController>(FindObjectsSortMode.None);
@@ -63,7 +63,7 @@ public class SaveManager : MonoBehaviour
     public void LoadData()
     {
         foreach(TowerData t in savedData){
-            if(t.hp == 0)
+            if(t.hp == -1)
                 Instantiate(Ruins[t.type], 
                             new Vector3(t.x, t.y, -1), 
                             Quaternion.identity * Ruins[t.type].transform.localRotation);

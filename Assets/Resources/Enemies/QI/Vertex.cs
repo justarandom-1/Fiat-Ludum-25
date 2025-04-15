@@ -6,7 +6,7 @@ public class Vertex : MonoBehaviour
 {
     [SerializeField] int depth;
     
-    float speed = 10;
+    float speed = 20;
 
     int state = 0;
 
@@ -26,16 +26,24 @@ public class Vertex : MonoBehaviour
 
     public void Initialize(Transform t, QIBeam p)
     {
-
         state = 1;
         target = t;
         parent = p;
 
-        direction = ((Vector2)(target.position - transform.position)).normalized;
-
         rb = GetComponent<Rigidbody2D>();
+    }
 
-        rb.velocity = speed * direction;
+    void Update()
+    {
+        if(state == 1)
+        {
+            if(target == null){
+                parent.reachedTarget(true);
+                return;
+            }
+            direction = ((Vector2)(target.position - transform.position)).normalized;
+            rb.velocity = speed * direction;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -43,8 +51,11 @@ public class Vertex : MonoBehaviour
         // if(collision.CompareTag("Environment"))
         //     Destroy(gameObject);
 
-        if (collision.CompareTag("Tower") && state == 1)
+        if (collision.CompareTag("Tower") && collision.gameObject.transform == target && state == 1)
         {
+            state = 2;
+
+            rb.velocity = new Vector2(0, 0);
             // Try to damage the enemy if it has the takeDamage method
             GameEntity enemy = collision.GetComponent<GameEntity>();
             if (enemy != null)
@@ -52,7 +63,7 @@ public class Vertex : MonoBehaviour
                 enemy.takeDamage(80);
             }
 
-            parent.reachedTarget(transform.GetChild(0));
+            parent.reachedTarget();
         }
     }
 }
