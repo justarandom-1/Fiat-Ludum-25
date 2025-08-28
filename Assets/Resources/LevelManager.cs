@@ -11,6 +11,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] bool isTesting;
+    [SerializeField] bool isEmpty;
     public static LevelManager instance;
     public int gold;
     public int souls;
@@ -68,10 +70,15 @@ public class LevelManager : MonoBehaviour
 
         schedule = new List<(float, SpawnPattern)>();
 
-        // schedule.Add((1, new SpawnPattern(4, 4, 1, 0)));
+        if(isEmpty)
+        {
+            return;
+        }
 
-
-        // return;
+        if(isTesting){
+            schedule.Add((3, new SpawnPattern(4, 4, 1, 0)));
+            return;
+        }
 
         //          Time                  S  T  N  R 
         schedule.Add((1, new SpawnPattern(3, 1, 1, 0)));
@@ -81,41 +88,41 @@ public class LevelManager : MonoBehaviour
 
 
 
-        schedule.Add((10, new SpawnPattern(1, 1, 5, 1)));
-        schedule.Add((10, new SpawnPattern(6, 1, 5, 1)));
-        schedule.Add((10, new SpawnPattern(1, 1, 5, 1)));
-        schedule.Add((10, new SpawnPattern(10, 1, 5, 1)));
+        schedule.Add((15, new SpawnPattern(1, 1, 5, 1)));
+        schedule.Add((15, new SpawnPattern(6, 1, 5, 1)));
+        schedule.Add((15, new SpawnPattern(1, 1, 5, 1)));
+        schedule.Add((15, new SpawnPattern(10, 1, 5, 1)));
 
 
-        schedule.Add((25, new SpawnPattern(3, 1, 5, 1)));
-        schedule.Add((25, new SpawnPattern(4, 1, 8, 1)));
-        schedule.Add((25, new SpawnPattern(5, 1, 5, 1)));
-        schedule.Add((30, new SpawnPattern(4, 2, 3, 3)));
+        schedule.Add((35, new SpawnPattern(3, 1, 5, 1)));
+        schedule.Add((35, new SpawnPattern(4, 1, 8, 1)));
+        schedule.Add((35, new SpawnPattern(5, 1, 5, 1)));
+        schedule.Add((40, new SpawnPattern(4, 2, 3, 3)));
 
 
-        schedule.Add((45, new SpawnPattern(7, 2, 3, 1)));
-        schedule.Add((45, new SpawnPattern(1, 1, 4, 1)));
-        schedule.Add((45, new SpawnPattern(5, 1, 4, 1)));
-        schedule.Add((45, new SpawnPattern(9, 1, 4, 1)));
-        schedule.Add((47, new SpawnPattern(6, 3, 1, 0)));
+        schedule.Add((60, new SpawnPattern(7, 2, 3, 1)));
+        schedule.Add((60, new SpawnPattern(1, 1, 4, 1)));
+        schedule.Add((60, new SpawnPattern(5, 1, 4, 1)));
+        schedule.Add((60, new SpawnPattern(9, 1, 4, 1)));
+        schedule.Add((62, new SpawnPattern(6, 3, 1, 0)));
 
-        schedule.Add((60, new SpawnPattern(0, 1, 5, 1)));
-        schedule.Add((60, new SpawnPattern(6, 2, 2, 1)));
-        schedule.Add((65, new SpawnPattern(1, 3, 1, 0)));
-        schedule.Add((66, new SpawnPattern(8, 3, 1, 0)));
+        schedule.Add((85, new SpawnPattern(0, 1, 5, 1)));
+        schedule.Add((85, new SpawnPattern(6, 2, 2, 1)));
+        schedule.Add((90, new SpawnPattern(1, 3, 1, 0)));
+        schedule.Add((91, new SpawnPattern(8, 3, 1, 0)));
 
-        schedule.Add((81, new SpawnPattern(0, 2, 1, 0)));
-        schedule.Add((81, new SpawnPattern(1, 2, 1, 0)));
-        schedule.Add((81, new SpawnPattern(10, 2, 1, 0)));
-        schedule.Add((81, new SpawnPattern(7, 2, 1, 0)));
-        schedule.Add((81, new SpawnPattern(8, 2, 1, 0)));
-        schedule.Add((81, new SpawnPattern(9, 2, 1, 0)));
-        schedule.Add((85, new SpawnPattern(10, 3, 1, 0)));
-        schedule.Add((86, new SpawnPattern(4, 3, 1, 0)));
-        schedule.Add((88, new SpawnPattern(6, 3, 1, 0)));
+        schedule.Add((115, new SpawnPattern(0, 2, 1, 0)));
+        schedule.Add((115, new SpawnPattern(1, 2, 1, 0)));
+        schedule.Add((115, new SpawnPattern(10, 2, 1, 0)));
+        schedule.Add((115, new SpawnPattern(7, 2, 1, 0)));
+        schedule.Add((115, new SpawnPattern(8, 2, 1, 0)));
+        schedule.Add((115, new SpawnPattern(9, 2, 1, 0)));
+        schedule.Add((119, new SpawnPattern(10, 3, 1, 0)));
+        schedule.Add((120, new SpawnPattern(4, 3, 1, 0)));
+        schedule.Add((122, new SpawnPattern(6, 3, 1, 0)));
 
 
-        schedule.Add((99, new SpawnPattern(4, 4, 1, 0)));
+        schedule.Add((140 + Random.Range(0, 25), new SpawnPattern(4, 4, 1, 0)));
 
     }
 
@@ -153,9 +160,9 @@ public class LevelManager : MonoBehaviour
         UpdateUI();
     }
 
-    public void PlaySound(AudioClip a)
+    public void PlaySound(AudioClip a, float vol = 1.0f)
     {
-        audioSource.PlayOneShot(a);
+        audioSource.PlayOneShot(a, vol);
     }
 
     // Update is called once per frame

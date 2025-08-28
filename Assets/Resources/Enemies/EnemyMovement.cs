@@ -9,6 +9,8 @@ public class EnemyMovement : GameEntity
 {
     [SerializeField] protected float speed;
     [SerializeField] protected int value;
+    
+    public bool isActive = false;
     protected bool isMoving;
 
     protected Transform Base;
@@ -20,10 +22,15 @@ public class EnemyMovement : GameEntity
     protected bool reachedTarget = false;
 
     protected Seeker seeker;
+    protected Animator animator;
+
+    [SerializeField] bool lr;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
+
+        isActive = true;
 
         deathSound = Resources.Load<AudioClip>("SFX/angelDeathSound");
 
@@ -33,6 +40,8 @@ public class EnemyMovement : GameEntity
 
         if(LevelManager.instance.Base != null)
             Base = LevelManager.instance.Base.transform;
+
+        animator = GetComponent<Animator>();
 
         UpdatePath();
         
@@ -54,32 +63,7 @@ public class EnemyMovement : GameEntity
         }
     }
 
-    protected override void kill()
-    {
-        LevelManager.instance.AddSouls(value);
-
-        value = 0;
-        
-        base.kill();
-    }
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        if (collision.collider.CompareTag("Enemy"))
-        {
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-        }
-
-        if (collision.collider.CompareTag("Tower"))
-        {
-            Vector3 otherPosition = collision.transform.position;
-            Vector2 force = (Vector2)(transform.position - otherPosition).normalized;
-            rb.AddForce(force * 100);
-            collision.gameObject.GetComponent<TowerController>().takeDamage(power);
-        }
-    }
-
-    float VectorToAngle(Vector2 v)
+    protected float VectorToAngle(Vector2 v)
     {
         if(v.magnitude == 0) return 0;
 
@@ -92,8 +76,77 @@ public class EnemyMovement : GameEntity
     }
 
 
+    protected override void kill()
+    {
+        LevelManager.instance.AddSouls(value);
+
+        value = 0;
+        
+        base.kill();
+    }
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(!isActive)
+            return;
+
+        if (collision.collider.CompareTag("Environment"))
+        {
+            Vector2 force = ((Vector2)transform.position - collision.contacts[0].point).normalized;
+            rb.AddForce(force * 50);
+        }
+        
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        }
+
+        if (collision.collider.CompareTag("Tower"))
+        {
+            collision.gameObject.GetComponent<TowerController>().takeDamage(power);
+        }
+    }
+
+    protected virtual void OnTriggerEnter2D(Collider2D other)
+    {
+        if(!isActive)
+            return;
+
+        if (other.CompareTag("Enemy"))
+        {
+            Physics2D.IgnoreCollision(other, GetComponent<Collider2D>());
+        }
+
+        if (other.CompareTag("Tower"))
+        {
+            other.gameObject.GetComponent<TowerController>().takeDamage(power);
+        }
+    }
+
+
+    public virtual void Push(Vector2 other)
+    {
+        LevelManager.instance.PlaySound(hitSFX, 0.4f);
+        Vector2 force = ((Vector2)transform.position - other).normalized;
+        rb.AddForce(force * 150);
+        UpdatePath();
+    }
+
+
     protected virtual void FixedUpdate()
     {
+
+        if(lr && Base != null)
+        {
+            float xDirection = Base.position.x - transform.position.x;
+            xDirection = xDirection / Mathf.Abs(xDirection);
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1 * xDirection, transform.localScale.y, transform.localScale.z);
+        }
+
+        // if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Spawn"))
+        // {
+        //     return;
+        // }
+
         if(path != null)
         {
             if(currentWaypoint >= path.vectorPath.Count){
@@ -112,9 +165,12 @@ public class EnemyMovement : GameEntity
             if (distance < nextWayPointDistance)
                 currentWaypoint++;
 
-            transform.rotation = Quaternion.identity;
 
-            transform.Rotate(0, 0, VectorToAngle(direction) - 90);
+            if(!lr)
+            {
+                transform.rotation = Quaternion.identity;
+                transform.Rotate(0, 0, VectorToAngle(direction) - 90);
+            }
         }
     }
 }

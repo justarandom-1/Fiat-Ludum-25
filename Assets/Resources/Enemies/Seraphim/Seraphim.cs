@@ -40,36 +40,6 @@ public class Seraphim : EnemyMovement
         hand = transform.GetChild(3);        
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        if (collision.collider.CompareTag("Enemy"))
-        {
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-        }
-
-        if (collision.collider.CompareTag("Tower"))
-        {
-            Vector3 otherPosition = collision.transform.position;
-            Vector2 force = (Vector2)(transform.position - otherPosition).normalized;
-            rb.AddForce(force * 100);
-            collision.gameObject.GetComponent<TowerController>().takeDamage(power);
-        }
-    }
-
-    float VectorToAngle(Vector2 v)
-    {
-        if(v.magnitude == 0) return 0;
-
-        float r = Mathf.Asin(v.y / v.magnitude) * 180 / Mathf.PI;
-
-        if(v.x < 0)
-            return 180 - r;
-
-        return r ;            
-    }
-
-
     protected override void FixedUpdate()
     {
         if(Base == null)

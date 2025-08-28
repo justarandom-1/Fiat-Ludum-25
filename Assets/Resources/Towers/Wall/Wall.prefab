@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8954877597875237398}
   - component: {fileID: 430843091936410094}
   - component: {fileID: -1132617552794690005}
+  - component: {fileID: 7093939638853303506}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Tower
@@ -267,9 +268,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 150
-  power: 30
+  power: 25
   RuinsObject: {fileID: 2617694580837047233, guid: eb2c169e9f670104e88491e416c2df6f, type: 3}
   type: 2
+--- !u!95 &7093939638853303506
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2249032046222178030}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e90a15379619d4240b686f3f206445fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5396535802558472589
 GameObject:
   m_ObjectHideFlags: 0

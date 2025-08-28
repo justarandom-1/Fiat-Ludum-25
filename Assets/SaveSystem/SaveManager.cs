@@ -55,7 +55,7 @@ public class SaveManager : MonoBehaviour
                             type = t.getType(),
                             x = t.getX(),
                             y = t.getY(),
-                            hp = t.GetHealth()
+                            hp = t.getCurrHealth()
                          });
     }
 

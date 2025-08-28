@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Pathfinding;
-using UnityEngine.SceneManagement;
 
 
 public class QI : EnemyMovement
@@ -34,11 +33,9 @@ public class QI : EnemyMovement
     [SerializeField] AudioClip teleportSFX;
     private Transform hand;
 
-    private float timer = 1;
+    [SerializeField] float timer;
 
     private float teleportTimer = 0;
-
-    private Animator animator;
 
     private GameObject beam = null;
 
@@ -50,6 +47,32 @@ public class QI : EnemyMovement
 
     private List<GameObject> allTowers = new List<GameObject>();
 
+    [SerializeField] protected GameObject skeletonPrefab;
+
+    [SerializeField] protected float spawnRate;
+
+    [SerializeField] protected float spawnTimer;
+
+    [SerializeField] protected GameObject soul;
+
+    [SerializeField] GameObject starsPrefab;
+
+    [SerializeField] protected GameObject crocodilePrefab;
+
+    private Shield shield;
+    private int summonedCrocodiles = 0;
+
+    private bool usedWave = false;
+    private bool usedStars = false;
+
+    private bool justUsedSpecial = false;
+
+    [SerializeField] bool isUnderHaste = false;
+
+    private float hasteTimer = 0;
+
+    [SerializeField] float hasteDuration;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -57,51 +80,68 @@ public class QI : EnemyMovement
 
         hand = transform.GetChild(3);        
 
-        animator = GetComponent<Animator>();
-
         state = 0;
 
         var data = FindObjectsByType<TowerController>(FindObjectsSortMode.None);
 
         foreach(TowerController t in data)
             allTowers.Add(t.gameObject);
+
+        shield = transform.GetChild(9).gameObject.GetComponent<Shield>();
+    }
+
+    public override void Push(Vector2 other)
+    {
+        if(shield.getState() == 1)
+            return;
+        LevelManager.instance.PlaySound(hitSFX, 0.4f);
+        Vector2 force = ((Vector2)transform.position - other).normalized;
+        rb.AddForce(force * 100);
+        UpdatePath();
     }
 
     protected override void kill()
     {
-        SceneManager.LoadScene("WinningScene");
-        
+
+        Instantiate(soul, new Vector3(transform.position.x, transform.position.y, -2), Quaternion.identity);
+
         base.kill();
     }
-    void OnCollisionEnter2D(Collision2D collision)
+
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
-
-        if (collision.collider.CompareTag("Enemy"))
-        {
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-        }
-
-        if (collision.collider.CompareTag("Tower"))
-        {
-            Vector3 otherPosition = collision.transform.position;
-            Vector2 force = (Vector2)(transform.position - otherPosition).normalized;
-            rb.AddForce(force * 100);
-            collision.gameObject.GetComponent<TowerController>().takeDamage(power);
-        }
+        if(shield.getState() == 1)
+            return;
+        base.OnTriggerEnter2D(other);
     }
 
-    float VectorToAngle(Vector2 v)
+
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        if(v.magnitude == 0) return 0;
-
-        float r = Mathf.Asin(v.y / v.magnitude) * 180 / Mathf.PI;
-
-        if(v.x < 0)
-            return 180 - r;
-
-        return r ;            
+        if(shield.getState() == 1)
+            return;
+        base.OnCollisionEnter2D(collision);
     }
 
+
+    public override void takeDamage(int dmg)
+    {
+        if(shield.getState() != 1)
+            base.takeDamage(dmg);
+    }
+
+    protected void haste()
+    {
+        animator.speed = 3;
+        isUnderHaste = true;
+        hasteTimer = hasteDuration;
+    }
+
+    protected void unHaste()
+    {
+        animator.speed = 1;
+        isUnderHaste = false;
+    }
 
     protected override void FixedUpdate()
     {
@@ -123,6 +163,8 @@ public class QI : EnemyMovement
                 animator.Play("Appear");
                 UpdatePath();
                 teleportTimer = teleportRate;
+
+                justUsedSpecial = false;
             }
 
             return;
@@ -130,22 +172,55 @@ public class QI : EnemyMovement
 
         teleportTimer = Mathf.Max(teleportTimer - Time.deltaTime, 0);
 
-        if(teleportTimer == 0 && beam == null)
+        if(teleportTimer == 0 && beam == null && !isUnderHaste)
         {
             rb.velocity = new Vector2(0, 0);
             state = 1;
             animator.Play("Teleport");
 
-            int i = Random.Range(0, teleportCoordinates.Count);
+            int t = Random.Range(0, teleportCoordinates.Count);
 
-            while(i == prevTeleport)
-                i = Random.Range(0, teleportCoordinates.Count);
+            while(t == prevTeleport)
+                t = Random.Range(0, teleportCoordinates.Count);
 
-            Vector2 target = teleportCoordinates[i];
+            Vector2 target = teleportCoordinates[t];
+
+            var allTowers = FindObjectsByType<TowerController>(FindObjectsSortMode.None);
+
+            for(int i = 0; i < allTowers.Length; i++)
+            {
+                if((target - (Vector2)allTowers[i].getPos()).magnitude < 2f)
+                    allTowers[i].takeDamage(666);
+            }
+
             transform.position = new Vector3(target.x, target.y, transform.position.z);
-            prevTeleport = i;
+            prevTeleport = t;
             LevelManager.instance.PlaySound(teleportSFX);
+
+            
+            
             return;
+        }
+
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking") && timer == -1){
+            if(!isUnderHaste)
+                timer = fireRate;
+            else
+                timer = 0.1f;
+            FireProjectile();
+        }
+
+        if((!animator.GetCurrentAnimatorStateInfo(0).IsName("QI") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")))
+        {
+            rb.velocity = new Vector2(0, 0);
+            return;
+        }
+
+        if(isUnderHaste)
+        {
+            hasteTimer = Mathf.Max(hasteTimer - Time.deltaTime, 0);
+            if(hasteTimer == 0)
+                unHaste();
         }
 
         if(path != null)
@@ -170,13 +245,69 @@ public class QI : EnemyMovement
         if(timer > 0)
         {
             timer = Mathf.Max(timer - Time.deltaTime, 0);
+        }
+        else if(animator.GetCurrentAnimatorStateInfo(0).IsName("QI") && beam == null)
+        {
+            timer = -1;
+            animator.Play("Attack");
+            beam = hand.gameObject;
+        }
 
-            if(timer == 0)
-            {
-                timer = fireRate;
-                FireProjectile();
+        if(curHealth < maxHealth / 2)
+            spawnTimer = Mathf.Max(spawnTimer - Time.deltaTime, 0);
 
-            }
+        if(!(teleportTimer > 1 && teleportTimer < teleportRate -1) || justUsedSpecial || beam != null || shield.getState() == 1)
+            return;
+        
+        if(curHealth < maxHealth / 3 && shield.getState() != 1 && !usedWave)
+        {
+            usedWave = true;
+            animator.Play("Wave");
+            LevelManager.instance.PlaySound(Resources.Load<AudioClip>("SFX/firing"));
+            teleportTimer = 5;
+            justUsedSpecial = true;
+        }
+
+        else if(curHealth < maxHealth * 0.5f && Random.Range(0, 100) == 0)
+        {
+            haste();
+            justUsedSpecial = true;
+        }
+
+        else if(summonedCrocodiles < 2 && Random.Range(0, 666) == 0)
+        {
+            summonedCrocodiles++;
+            Instantiate(crocodilePrefab, new Vector3(transform.position.x + xDirection, transform.position.y + 1, -1), Quaternion.identity);
+            justUsedSpecial = true;
+        }
+        
+        else if(!usedStars && Random.Range(0, 666) == 0)
+        {
+            usedStars = true;
+            animator.Play("ThrowStars");
+            Instantiate(starsPrefab, new Vector3(transform.position.x, transform.position.y + 0.41f, -1), Quaternion.identity);
+            justUsedSpecial = true;
+        }
+
+        else if(curHealth < maxHealth * 0.9f && shield.getState() == 0 && Random.Range(0, 300) == 0)
+        {
+            shield.activate();
+            justUsedSpecial = true;
+        }
+
+        else if(curHealth < maxHealth / 2 && spawnTimer == 0)
+        {
+            spawnTimer = spawnRate;
+
+            Instantiate(skeletonPrefab, new Vector3(transform.position.x + 1, transform.position.y + 1, -1), Quaternion.identity);
+
+            Instantiate(skeletonPrefab, new Vector3(transform.position.x - 1, transform.position.y + 1f, -1), Quaternion.identity);
+
+            Instantiate(skeletonPrefab, new Vector3(transform.position.x - 1, transform.position.y - 1, -1), Quaternion.identity);
+
+            Instantiate(skeletonPrefab, new Vector3(transform.position.x + 1, transform.position.y - 1, -1), Quaternion.identity);
+
+            justUsedSpecial = true;
         }
     
     }

@@ -4946,7 +4946,7 @@ Transform:
   m_GameObject: {fileID: 6943289026118764476}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -5023,6 +5023,7 @@ MonoBehaviour:
   power: 15
   speed: 300
   value: 1
+  lr: 0
 --- !u!60 &5780681613753516491
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5316,6 +5317,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AngelHP
       objectReference: {fileID: 0}
+    - target: {fileID: 2373503010438023056, guid: 3a288b8178406ef4f8f9ebe138659aca, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6579534598930504850, guid: 3a288b8178406ef4f8f9ebe138659aca, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5370,7 +5375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6579534598930504850, guid: 3a288b8178406ef4f8f9ebe138659aca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.25
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 6579534598930504850, guid: 3a288b8178406ef4f8f9ebe138659aca, type: 3}
       propertyPath: m_LocalRotation.w

@@ -73,7 +73,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2092509189578421524, guid: d82f31c4d57a4b7479e04825a767332f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5
+      value: -1.02
       objectReference: {fileID: 0}
     - target: {fileID: 2092509189578421524, guid: d82f31c4d57a4b7479e04825a767332f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -842,9 +842,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6943289026118764476, guid: d82f31c4d57a4b7479e04825a767332f, type: 3}
       insertIndex: 2
       addedObject: {fileID: -6914662161632218647}
-    - targetCorrespondingSourceObject: {fileID: 6943289026118764476, guid: d82f31c4d57a4b7479e04825a767332f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2038554296966501244}
   m_SourcePrefab: {fileID: 100100000, guid: d82f31c4d57a4b7479e04825a767332f, type: 3}
 --- !u!4 &1041392858446006200 stripped
 Transform:
@@ -872,40 +869,7 @@ MonoBehaviour:
   power: 25
   speed: 75
   value: 3
+  isActive: 0
+  lr: 0
   projectilePrefab: {fileID: 3237092816436100242, guid: 9531b80e8132b21429be30c0ef91c9c0, type: 3}
   fireRate: 2
---- !u!70 &2038554296966501244
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8296290057249043728}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.10255441}
-  m_Size: {x: 1.487757, y: 2.1183035}
-  m_Direction: 0

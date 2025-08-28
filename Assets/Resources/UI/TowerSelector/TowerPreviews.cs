@@ -19,7 +19,7 @@ public enum Tower
 
 public class TowerSelector : MonoBehaviour
 {
-    public static Tower selectedTower = Tower.None;
+    public Tower selectedTower = Tower.None;
 
     public static List<int> TowerCosts;
 
@@ -108,14 +108,12 @@ public class TowerSelector : MonoBehaviour
                                        new Vector3(transform.position.x, transform.position.y, -1), 
                                        Quaternion.identity * TowerObjects[(int)selectedTower].transform.localRotation);
             if(selectedTower == Tower.Base){
-                Debug.Log("Built base");
                 LevelManager.instance.Base = n;
                 if(LevelManager.instance.phase == 0)
                     LevelManager.instance.phase = 1;
             }
             LevelManager.instance.AddGold(-1 * TowerCosts[(int)selectedTower]);
             SelectTower(0);
-            Debug.Log("Build");
         }
     }
 }

@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class Wall : TowerController
 {
-    void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Enemy"))
+        base.OnCollisionEnter2D(collision);
+
+        if (collision.collider.CompareTag("Enemy") && (collision.collider.gameObject.GetComponent<EnemyMovement>() != null && collision.collider.gameObject.GetComponent<EnemyMovement>().isActive))
         {
-            collision.gameObject.GetComponent<EnemyMovement>().takeDamage(power);
+            collision.gameObject.GetComponent<GameEntity>().takeDamage(power);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        base.OnTriggerEnter2D(other);
+        if (other.CompareTag("Enemy") && (other.gameObject.GetComponent<EnemyMovement>() != null && other.gameObject.GetComponent<EnemyMovement>().isActive))
         {
-            other.gameObject.GetComponent<EnemyMovement>().takeDamage(power);
+            other.gameObject.GetComponent<GameEntity>().takeDamage(power);
         }
     }
 }

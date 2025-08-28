@@ -8,6 +8,8 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     float wait = 0;
 
+    string nextScene;
+
     [SerializeField] AudioClip selectSFX;
 
     private AudioSource audioSource;
@@ -20,8 +22,9 @@ public class MainMenu : MonoBehaviour
         audioSource.volume = 1;
     }
 
-    public void StartLevel()
+    public void StartLevel(string ns = "Level")
     {
+        nextScene = ns;
         audioSource.PlayOneShot(selectSFX);
         wait = TransitionTime;
         GameObject.Find("Menu").GetComponent<Animator>().Play("MenuDisappear");
@@ -35,7 +38,7 @@ public class MainMenu : MonoBehaviour
             wait = Mathf.Max(0, wait - Time.deltaTime);
 
             if(wait == 0)
-                SceneManager.LoadScene("Level");
+                SceneManager.LoadScene(nextScene);
         }
     }
 }

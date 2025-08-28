@@ -15,7 +15,9 @@ public class AngelProjectile : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
-    private bool hasExploded;
+    private int state;
+
+    private List<GameObject> towersHit = new List<GameObject>();
 
     [SerializeField] AudioClip explosionSFX;
 
@@ -34,6 +36,8 @@ public class AngelProjectile : MonoBehaviour
         startPos = transform.position;
 
         rb.velocity = speed * direction;
+
+        state = 1;
     }
 
     Vector2 GetTarget()
@@ -77,19 +81,25 @@ public class AngelProjectile : MonoBehaviour
 
         if (collision.CompareTag("Tower"))
         {
-            if(!hasExploded)
+            if(state == 1)
             {
                 LevelManager.instance.PlaySound(explosionSFX);
                 animator.Play("Explode");
-                hasExploded = true;
+                state = 2;
                 rb.velocity = new Vector2(0, 0);
             }
 
             // Try to damage the enemy if it has the takeDamage method
-            GameEntity enemy = collision.GetComponent<GameEntity>();
+            GameEntity enemy = collision.GetComponent<TowerController>();
             if (enemy != null)
             {
-                enemy.takeDamage(damage);
+                foreach(GameObject tower in towersHit)
+                {
+                    if(tower != null && tower == enemy.gameObject)
+                        return;
+                }
+                enemy.takeDamage(damage, false);
+                towersHit.Add(enemy.gameObject);
             }
         }
     }

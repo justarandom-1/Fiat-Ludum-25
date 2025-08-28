@@ -46,7 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714c44050d95e504398d00bd7eede8f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTail: 1
   depth: 1
+  state: 0
+  direction: {x: 0, y: 0}
 --- !u!50 &1790652689138539404
 Rigidbody2D:
   serializedVersion: 4
@@ -156,7 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714c44050d95e504398d00bd7eede8f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTail: 0
   depth: 1
+  state: 0
+  direction: {x: 0, y: 0}
 --- !u!50 &7700860077766188510
 Rigidbody2D:
   serializedVersion: 4
@@ -381,8 +387,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c0de8c3d2fddc84284b166b630c326c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  damage: 0
+  speed: 20
+  damage: 100
   SFX: {fileID: 8300000, guid: 4d2bd5bdde40ec3458d1798861d5c2a5, type: 3}
 --- !u!1 &8785869553345366391
 GameObject:
@@ -431,7 +437,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714c44050d95e504398d00bd7eede8f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTail: 0
   depth: 1
+  state: 0
+  direction: {x: 0, y: 0}
 --- !u!50 &1153226577205461329
 Rigidbody2D:
   serializedVersion: 4

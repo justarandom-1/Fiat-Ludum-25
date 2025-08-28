@@ -22,6 +22,8 @@ public class Shooter : TowerController
 
     private float timer = 0;
 
+    private float disabledTimer = 0;
+
     protected override void Start()
     {
         base.Start();
@@ -31,6 +33,10 @@ public class Shooter : TowerController
         barrel = turret.GetChild(0);
     }
 
+    public void Disable(float time)
+    {
+        disabledTimer += time;
+    }
 
     Transform GetTarget()
     {
@@ -57,6 +63,12 @@ public class Shooter : TowerController
 
     void FixedUpdate()
     {
+        if(disabledTimer > 0)
+        {
+            disabledTimer = Mathf.Max(disabledTimer - Time.deltaTime, 0);
+            return;
+        }
+
         if(timer > 0)
             timer = Mathf.Max(timer - Time.deltaTime, 0);
 

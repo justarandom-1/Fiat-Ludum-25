@@ -25,6 +25,10 @@ public class lr_LineController : MonoBehaviour
     {
         for(int i = 0; i < points.Length; i ++)
         {
+            if(points[i] == null){
+                Destroy(gameObject);
+                return;
+            }
             lr.SetPosition(i, points[i].position);
         }
     }

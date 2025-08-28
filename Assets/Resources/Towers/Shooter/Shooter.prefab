@@ -4960,6 +4960,7 @@ GameObject:
   - component: {fileID: 6193701347115916354}
   - component: {fileID: 3928210756885577730}
   - component: {fileID: 114582975933366892}
+  - component: {fileID: 3975511498106976491}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Tower
@@ -5069,9 +5070,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.008621812}
   serializedVersion: 2
-  m_Radius: 1.751006
+  m_Radius: 1.2955793
 --- !u!60 &6193701347115916354
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5201,6 +5202,27 @@ MonoBehaviour:
   rotationSpeed: 360
   fireRate: 1.5
   fireSFX: {fileID: 8300000, guid: f047a8cdf25b1ab4db2797c55b5a8664, type: 3}
+--- !u!95 &3975511498106976491
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802292391076179982}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e90a15379619d4240b686f3f206445fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &8633264837127240633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5212,6 +5234,10 @@ PrefabInstance:
     - target: {fileID: 731216035613144075, guid: 9990dada46af230418a983e6712aaa3d, type: 3}
       propertyPath: m_Name
       value: HPBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241042314253950531, guid: 9990dada46af230418a983e6712aaa3d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6288482354122081601, guid: 9990dada46af230418a983e6712aaa3d, type: 3}
       propertyPath: m_Pivot.x

@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour
     void FixedUpdate()
     {
 
-        if((startPos - transform.position).magnitude > range || !spriteRenderer.isVisible)
+        if((startPos - transform.position).magnitude > range || transform.position.magnitude > 15)
             Destroy(gameObject);
     }
 

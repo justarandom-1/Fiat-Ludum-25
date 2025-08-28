@@ -20,13 +20,18 @@ public class QIBeam : MonoBehaviour
 
     private lr_LineController line;
 
+    List<GameObject> hits = new List<GameObject>();
+
     void Start()
     {
     }
 
-    public void Initialize (Transform start, int numOGTowers)
+    public void Initialize (Transform start, int numOGTowers, bool hasted = false)
     {
         line = GetComponent<lr_LineController>();
+
+        if(hasted)
+            speed *=2;
 
         vertices[0] = start;
 
@@ -42,7 +47,7 @@ public class QIBeam : MonoBehaviour
 
         for(int i = 0; i < allTowers.Length; i++)
         {
-            if(allTowers[i].gameObject == LevelManager.instance.Base && numOGTowers > 3)
+            if(allTowers[i].gameObject == LevelManager.instance.Base && (allTowers.Length > 3 && (numOGTowers > 1  || Random.Range(0, 2) == 0)))
                 continue;
             addToList(allTowers[i].gameObject.transform);
         }
@@ -58,8 +63,6 @@ public class QIBeam : MonoBehaviour
         line.SetUpLine(vertices);
 
         state = 0;
-
-        Debug.Log(targets.Length);
 
         reachedTarget();
 
@@ -104,24 +107,36 @@ public class QIBeam : MonoBehaviour
         state += 1;
 
         if(state >= targets.Length || terminate){
-            Debug.Log(state);
             Destroy(gameObject);
             return;
         }
 
         LevelManager.instance.PlaySound(SFX);
 
-        vertices[state].gameObject.GetComponent<Vertex>().Initialize(targets[state], this);
+        vertices[state].gameObject.GetComponent<Vertex>().Initialize(targets[state], this, speed);
+
+        vertices[state].SetParent(transform);
     }
 
 
     void FixedUpdate()
     {
-        
+        if(targets[0] == null)
+            Destroy(gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public void hit(GameObject target)
     {
-        
+        for(int i = 0; i < hits.Count; i++)
+            if(hits[i] != null && hits[i] == target)
+                return;
+            
+
+        hits.Add(target);
+        GameEntity enemy = target.GetComponent<TowerController>();
+        if (enemy != null)
+        {
+            enemy.takeDamage(damage, false);
+        }
     }
 }

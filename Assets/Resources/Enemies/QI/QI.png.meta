@@ -114,11 +114,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 600
+        y: 1795
         width: 300
-        height: 300
+        height: 200
       alignment: 9
-      pivot: {x: 0.47888082, y: 0.15505086}
+      pivot: {x: 0.4788808, y: 0.233}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -135,11 +135,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 600
+        y: 1795
         width: 300
-        height: 300
+        height: 200
       alignment: 9
-      pivot: {x: 0.4788808, y: 0.1550509}
+      pivot: {x: 0.4788808, y: 0.233}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -156,11 +156,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 600
-        y: 600
+        y: 1795
         width: 300
-        height: 300
+        height: 200
       alignment: 9
-      pivot: {x: 0.4788808, y: 0.1550509}
+      pivot: {x: 0.4788808, y: 0.233}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -177,11 +177,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
+        y: 1495
         width: 300
-        height: 300
+        height: 200
       alignment: 9
-      pivot: {x: 0.4788808, y: 0.1550509}
+      pivot: {x: 0.4788808, y: 0.233}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -198,11 +198,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 300
+        y: 1495
         width: 300
-        height: 300
+        height: 200
       alignment: 9
-      pivot: {x: 0.4788808, y: 0.1550509}
+      pivot: {x: 0.4788808, y: 0.233}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -219,11 +219,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 600
-        y: 300
+        y: 1495
         width: 300
-        height: 300
+        height: 200
       alignment: 9
-      pivot: {x: 0.4788808, y: 0.1550509}
+      pivot: {x: 0.4788808, y: 0.233}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -240,11 +240,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 1195
         width: 300
-        height: 300
+        height: 200
       alignment: 9
-      pivot: {x: 0.4788808, y: 0.1550509}
+      pivot: {x: 0.4788808, y: 0.233}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -261,11 +261,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 0
+        y: 1195
         width: 300
-        height: 300
+        height: 200
       alignment: 9
-      pivot: {x: 0.4788808, y: 0.1550509}
+      pivot: {x: 0.4788808, y: 0.233}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -281,12 +281,12 @@ TextureImporter:
       name: QI_8
       rect:
         serializedVersion: 2
-        x: 600
-        y: 0
+        x: 0
+        y: 905
         width: 300
-        height: 300
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -294,6 +294,258 @@ TextureImporter:
       bones: []
       spriteID: 9fd66a2ff912017479190f4306fbce5b
       internalID: 2062460225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_9
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 905
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44bffeabae0bd394daf37c552ef2ffb8
+      internalID: 3398861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_10
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 905
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b997089df6d801144aae88fb7c851df7
+      internalID: 1814480899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_11
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 905
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15f83ec52b3671849924ca953d0a97e5
+      internalID: 285411041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 705
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03f5b7e1b4cc87a4ea96e14cf73409b2
+      internalID: 595550818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_13
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 705
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 983a28b0ccfeac94d830666a37467ea5
+      internalID: 973949499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_14
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 705
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a19a6317e6a95a94fadaff03b6fc1b2d
+      internalID: -1064426836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_15
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 705
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7a175c81ce232040bf947a787e56915
+      internalID: 421336998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 505
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 159ee1b2fbb256d4b8e0c93fa9579985
+      internalID: -433699993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_17
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 505
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 094384697bcd95640827bbc8abe45b46
+      internalID: -2083799483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_18
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 505
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 798685bb4a6000440819dab8fc9cdcb8
+      internalID: -754778584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_19
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 505
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbf967852943baa429945e37e974ab26
+      internalID: -2020578406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QI_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 305
+        width: 300
+        height: 200
+      alignment: 9
+      pivot: {x: 0.5407408, y: 0.233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c184de6fb490abf43b6ea92cb0888921
+      internalID: -916769245
       vertices: []
       indices: 
       edges: []
@@ -311,13 +563,25 @@ TextureImporter:
     nameFileIdTable:
       QI_0: 1711751864
       QI_1: -488454037
+      QI_10: 1814480899
+      QI_11: 285411041
+      QI_12: 595550818
+      QI_13: 973949499
+      QI_14: -1064426836
+      QI_15: 421336998
+      QI_16: -433699993
+      QI_17: -2083799483
+      QI_18: -754778584
+      QI_19: -2020578406
       QI_2: -1512456104
+      QI_20: -916769245
       QI_3: -1810821254
       QI_4: -1284272835
       QI_5: -1420993980
       QI_6: 1075202255
       QI_7: -1873396673
       QI_8: 2062460225
+      QI_9: 3398861
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
